@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gujarati New Year gift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gujarati:wght@500;700&family=Noto+Sans+Gujarati:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0b1026; --night2:#141a3d; --saffron:#f29a2e; --marigold:#ffc857;
+  --kumkum:#c4372b; --cream:#f6e9d0; --muted:#b9b2a3;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;min-height:100%;background:radial-gradient(120% 90% at 50% 100%,var(--night2),var(--night) 70%);
+  color:var(--cream);font-family:"Noto Sans Gujarati",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--night);z-index:10}
+.serif{font-family:"Noto Serif Gujarati",Georgia,"Times New Roman",serif}
+main{max-width:30rem;margin:0 auto;padding:2.5rem 1.25rem 3rem;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+[hidden]{display:none!important}
+
+/* create view */
+h1{font-size:1.9rem;line-height:1.25;margin:0 0 .5rem;font-weight:700;color:var(--marigold)}
+.lead{color:var(--muted);margin:0 0 1.5rem}
+label{display:block;font-weight:500;margin-bottom:.4rem}
+input{width:100%;padding:.85rem 1rem;font:inherit;color:var(--cream);background:rgba(255,255,255,.06);
+  border:1px solid rgba(246,233,208,.3);border-radius:10px}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--marigold);outline-offset:2px}
+.hint{font-size:.85rem;color:var(--muted);margin:.4rem 0 1.25rem}
+.btn{display:inline-block;padding:.85rem 1.4rem;font:inherit;font-weight:500;border-radius:10px;border:1px solid var(--saffron);
+  background:var(--saffron);color:#2a1604;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:var(--cream);border-color:rgba(246,233,208,.4)}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+#result{margin-top:1.75rem;padding:1rem;border:1px solid rgba(255,200,87,.4);border-radius:12px;background:rgba(255,200,87,.06)}
+#linkbox{word-break:break-all;font-size:.9rem;color:var(--marigold);margin:0 0 .25rem}
+#status{min-height:1.4em;font-size:.85rem;color:var(--muted);margin:.5rem 0 0}
+
+/* gift view */
+#gift{position:fixed;inset:0;overflow:hidden;z-index:5;background:radial-gradient(120% 90% at 50% 100%,var(--night2),var(--night) 70%)}
+canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--cream);opacity:.2;animation:tw 3s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.9}}
+.lantern{position:absolute;bottom:-60px;width:26px;height:34px;border-radius:40% 40% 30% 30%;background:radial-gradient(circle at 50% 70%,#ffd98a,#f29a2e 60%,#b5521a);
+  box-shadow:0 0 22px 8px rgba(242,154,46,.45);opacity:0;z-index:1}
+.open .lantern{animation:rise linear infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.85}90%{opacity:.6}100%{transform:translate(24px,-115vh);opacity:0}}
+.from{position:absolute;top:calc(env(safe-area-inset-top,0px) + 1.1rem);left:0;right:0;text-align:center;color:var(--muted);margin:0;z-index:3;padding:0 1rem}
+.landing{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:3;transition:opacity 1s}
+.landing.gone{opacity:0;pointer-events:none}
+.diya{background:none;border:0;padding:0;cursor:pointer;width:13rem;max-width:70vw;margin:0 auto;display:block;animation:pulse 2.4s ease-in-out infinite}
+.diya.lit{animation:none}
+@keyframes pulse{50%{transform:scale(1.05)}}
+.diya svg{width:100%;height:auto;overflow:visible}
+.glow{opacity:0;transform-origin:100px 70px;transition:opacity 1.2s,transform 1.2s;transform:scale(.4)}
+.flame{opacity:0;transform-origin:100px 118px;transform:scale(.2);transition:opacity .5s,transform .6s cubic-bezier(.2,1.4,.4,1)}
+.lit .glow{opacity:1;transform:scale(1.4)}
+.lit .flame{opacity:1;transform:scale(1);animation:flick 1.2s ease-in-out .6s infinite alternate}
+@keyframes flick{from{transform:scale(1) skewX(0)}to{transform:scale(1.08,.95) skewX(-3deg)}}
+.tap{color:var(--muted);margin:1rem 0 0;transition:opacity .4s}
+#msg{position:absolute;left:0;right:0;bottom:0;z-index:3;text-align:center;padding:3.5rem 1.25rem calc(env(safe-area-inset-bottom,0px) + 1.25rem);
+  background:linear-gradient(transparent,rgba(11,16,38,.9) 45%);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity 1.2s,transform 1.2s}
+#msg.show{opacity:1;transform:none;pointer-events:auto}
+#msg .gu{font-size:1.1rem;margin:0 auto .3rem;max-width:26rem;color:var(--cream)}
+#msg .en{color:var(--muted);font-size:.92rem;margin:0 auto;max-width:26rem}
+#msg .row{justify-content:center}
+@media (prefers-reduced-motion:reduce){
+  .diya,.star,.lit .flame,.open .lantern{animation:none}
+  .glow,.flame,#msg,.landing{transition-duration:.01s}
+}
+</style>
+</head>
+<body>
+<main>
+
+<section id="create">
+  <h1 class="serif">નૂતન વર્ષાભિનંદન<br>Make a New Year gift</h1>
+  <p class="lead">Enter your name and get a link to send on WhatsApp. When someone opens it, they light a diya and see your wishes.</p>
+  <label for="name">Your name</label>
+  <input id="name" type="text" maxlength="24" autocomplete="off" placeholder="Dhruv Patel">
+  <p class="hint">Use English letters. Your name appears as the sender.</p>
+  <button class="btn" id="make">Create my link</button>
+  <div id="result" hidden>
+    <p id="linkbox"></p>
+    <div class="row">
+      <button class="btn alt" id="copy">Copy link</button>
+      <a class="btn" id="wa" target="_blank" rel="noopener">Send on WhatsApp</a>
+      <button class="btn alt" id="preview">Preview</button>
+    </div>
+    <p id="status" role="status"></p>
+  </div>
+</section>
+
+<section id="gift" hidden>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <p class="from" id="from"></p>
+  <div class="landing" id="landing">
+    <button class="diya" id="diya" aria-label="Light the diya to open your gift">
+      <svg viewBox="0 0 200 170" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffc857" stop-opacity=".75"/><stop offset="1" stop-color="#f29a2e" stop-opacity="0"/></radialGradient>
+          <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9772b"/><stop offset="1" stop-color="#8f3a14"/></linearGradient>
+        </defs>
+        <circle class="glow" cx="100" cy="70" r="95" fill="url(#g)"/>
+        <path class="flame" d="M100 52 C84 76 86 112 100 120 C114 112 116 76 100 52Z" fill="#ffc857"/>
+        <path class="flame" d="M100 82 C93 96 94 112 100 117 C106 112 107 96 100 82Z" fill="#fff3d1"/>
+        <rect x="97" y="112" width="6" height="14" rx="2" fill="#3a2418"/>
+        <path d="M20 124 H180 C176 156 150 168 100 168 C50 168 24 156 20 124Z" fill="url(#bowl)"/>
+        <path d="M20 124 H180" stroke="#ffc857" stroke-width="3"/>
+        <circle cx="70" cy="146" r="3" fill="#ffc857"/><circle cx="100" cy="152" r="3" fill="#ffc857"/><circle cx="130" cy="146" r="3" fill="#ffc857"/>
+      </svg>
+    </button>
+    <p class="tap" id="tap">Tap the diya to open your gift. Best with the sound on.</p>
+  </div>
+  <div id="msg" aria-live="polite">
+    <p class="gu">નવું વર્ષ તમારા જીવનમાં સુખ, સમૃદ્ધિ અને શાંતિ લાવે.</p>
+    <p class="en">Happy Gujarati New Year. May the year ahead bring you good health, steady success and many happy days.</p>
+    <div class="row"><button class="btn alt" id="again">Watch again</button><a class="btn" id="mine" href="#">Make your own gift</a></div>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var create=$("create"), gift=$("gift"), opened=false, ac=null;
+
+  function clean(n){return n.replace(/[^A-Za-z0-9 ]/g,"").trim().replace(/\s+/g,"-").slice(0,24)}
+  function pretty(h){return decodeURIComponent(h).replace(/-/g," ")}
+
+  function route(){
+    var h=location.hash.replace(/^#/,"");
+    if(h){ showGift(pretty(h)); } else { reset(); gift.hidden=true; create.hidden=false; }
+  }
+
+  function showGift(name){
+    create.hidden=true; gift.hidden=false; reset();
+    $("from").textContent=name+" sent you a New Year gift";
+    if(!gift.dataset.stars){gift.dataset.stars=1;
+      for(var i=0;i<45;i++){var e=document.createElement("span");e.className="star";
+        e.style.cssText="left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation-delay:"+(Math.random()*3).toFixed(2)+"s";gift.insertBefore(e,gift.firstChild)}
+      for(var k=0;k<8;k++){var l=document.createElement("span");l.className="lantern";
+        l.style.cssText="left:"+(5+k*12)+"%;animation-duration:"+(14+Math.random()*10).toFixed(1)+"s;animation-delay:"+(Math.random()*8).toFixed(1)+"s";gift.insertBefore(l,gift.firstChild)}}
+  }
+  function reset(){
+    clearTimers(); stopFx(); opened=false;
+    gift.classList.remove("open"); $("msg").classList.remove("show");
+    $("diya").classList.remove("lit"); $("landing").classList.remove("gone"); $("tap").style.opacity=1;
+  }
+
+  /* sound */
+  function ctx(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended")ac.resume()}catch(e){}}
+  function chime(){
+    if(!ac)return;
+    var t=ac.currentTime;
+    [523.25,659.25,783.99,1046.5,1318.5].forEach(function(f,i){
+      var o=ac.createOscillator(),g=ac.createGain();
+      o.type="sine";o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+i*.16);g.gain.linearRampToValueAtTime(.14,t+i*.16+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+i*.16+1.8);
+      o.connect(g);g.connect(ac.destination);o.start(t+i*.16);o.stop(t+i*.16+1.9);
+    });
+  }
+  function pop(v){
+    if(!ac)return;
+    var n=Math.floor(ac.sampleRate*.3),b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);
+    for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);
+    var s=ac.createBufferSource(),g=ac.createGain(),f=ac.createBiquadFilter();
+    f.type="lowpass";f.frequency.value=700+Math.random()*900;g.gain.value=v||.3;
+    s.buffer=b;s.connect(f);f.connect(g);g.connect(ac.destination);s.start();
+  }
+
+  /* fireworks */
+  var cv=$("fx"),cx=cv.getContext("2d"),W=0,H=0,sparks=[],tps=[],rockets=[],targets=[],timers=[],ambient=false,nextAmb=0;
+  var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var COLS=["#ffc857","#f29a2e","#f6e9d0","#ff7a45","#ffd98a","#e4572e"];
+  function rc(){return COLS[Math.floor(Math.random()*COLS.length)]}
+  function size(){var D=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0)}
+  function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+  function later(fn,ms){timers.push(setTimeout(fn,ms))}
+
+  function makeTargets(){
+    var narrow=W<700,lines=narrow?["નૂતન","વર્ષાભિનંદન","સાલ મુબારક"]:["નૂતન વર્ષાભિનંદન","સાલ મુબારક"];
+    var oc=document.createElement("canvas"),o=oc.getContext("2d");oc.width=W;oc.height=H;
+    var fam='"Noto Serif Gujarati","Noto Sans Gujarati",serif',fs=100,mw=0;
+    o.font="700 "+fs+"px "+fam;
+    lines.slice(0,lines.length-1).forEach(function(l){mw=Math.max(mw,o.measureText(l).width)});
+    fs=Math.min(fs*W*.86/mw,narrow?86:116);
+    var sizes=lines.map(function(l,i){return i===lines.length-1?fs*.72:fs}),total=0;
+    sizes.forEach(function(z){total+=z*1.42});
+    var y=H*(narrow?.36:.4)-total/2;
+    o.textAlign="center";o.fillStyle="#fff";
+    lines.forEach(function(l,i){var z=sizes[i];y+=z*1.42;o.font="700 "+z+"px "+fam;o.fillText(l,W/2,y-z*.38)});
+    var step=Math.max(3,Math.round(fs/19)),d=o.getImageData(0,0,W,H).data,pts=[];
+    for(var yy=0;yy<H;yy+=step)for(var xx=0;xx<W;xx+=step)if(d[(yy*W+xx)*4+3]>140)pts.push({x:xx,y:yy});
+    while(pts.length>4200){pts=pts.filter(function(_,i){return i%2===0})}
+    targets=pts;
+  }
+
+  function burst(x,y,n,sp,c){
+    pop(.18+Math.random()*.12);
+    for(var i=0;i<n;i++){var a=Math.PI*2*i/n+Math.random()*.2,v=sp*(.4+Math.random()*.8);
+      sparks.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,dc:.011+Math.random()*.012,c:c||rc()})}
+  }
+  function launch(x,ty,fn){rockets.push({x:x,y:H+10,ty:ty,v:H*.017+Math.random()*2,fn:fn})}
+  function textBurst(x,y){
+    pop(.5);pop(.35);chime();
+    tps=targets.map(function(p){var a=Math.random()*6.283,s=Math.random()*10+1;
+      return{x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,tx:p.x,ty:p.y,age:0,hold:16+Math.random()*14,c:rc(),ph:Math.random()*6.28}});
+    burst(x,y,70,7,"#ffd98a");
+  }
+  function frame(t){
+    cx.globalCompositeOperation="destination-out";cx.fillStyle="rgba(0,0,0,.2)";cx.fillRect(0,0,W,H);
+    cx.globalCompositeOperation="lighter";
+    var i,p;
+    if(ambient&&t>nextAmb){nextAmb=t+650+Math.random()*900;
+      launch(W*(.1+Math.random()*.8),H*(.08+Math.random()*.3),function(x,y){burst(x,y,36,4+Math.random()*2)})}
+    for(i=rockets.length-1;i>=0;i--){p=rockets[i];p.y-=p.v;p.v*=.987;
+      sparks.push({x:p.x+(Math.random()-.5)*2,y:p.y,vx:(Math.random()-.5)*.6,vy:1+Math.random(),l:.7,dc:.05,c:"#ffd98a"});
+      if(p.y<=p.ty||p.v<1.2){rockets.splice(i,1);p.fn(p.x,p.y)}}
+    for(i=sparks.length-1;i>=0;i--){p=sparks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.vx*=.985;p.vy*=.985;p.l-=p.dc;
+      if(p.l<=0){sparks.splice(i,1);continue}
+      cx.globalAlpha=p.l;cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.4,2.4)}
+    for(i=0;i<tps.length;i++){p=tps[i];p.age++;
+      if(p.age<p.hold){p.x+=p.vx;p.y+=p.vy;p.vx*=.93;p.vy*=.93}else{p.x+=(p.tx-p.x)*.085;p.y+=(p.ty-p.y)*.085}
+      cx.globalAlpha=p.age<p.hold?.9:.6+.4*Math.sin(t*.004+p.ph);cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.6,2.6)}
+    cx.globalAlpha=1;
+    raf=requestAnimationFrame(frame);
+  }
+  function stopFx(){cancelAnimationFrame(raf);sparks=[];tps=[];rockets=[];ambient=false;cx.clearRect(0,0,W,H)}
+
+  function play(){
+    stopFx();clearTimers();size();makeTargets();
+    $("msg").classList.remove("show");gift.classList.add("open");
+    raf=requestAnimationFrame(frame);
+    if(still){tps=targets.map(function(p){return{x:p.x,y:p.y,vx:0,vy:0,tx:p.x,ty:p.y,age:99,hold:0,c:rc(),ph:0}});
+      $("msg").classList.add("show");return}
+    [[.0,.2,.3],[.35,.8,.28],[.7,.5,.22],[1.1,.3,.3],[1.4,.7,.26]].forEach(function(r){
+      later(function(){launch(W*r[1],H*r[2],function(x,y){burst(x,y,40,5)})},r[0]*1000)});
+    for(var k=0;k<8;k++)later(function(){pop(.22)},300+k*140);
+    later(function(){launch(W/2,H*(W<700?.36:.4),textBurst)},2300);
+    later(function(){ambient=true},4200);
+    later(function(){$("msg").classList.add("show")},5600);
+  }
+  function openGift(){
+    if(opened)return;opened=true;ctx();
+    $("diya").classList.add("lit");$("tap").style.opacity=0;pop(.25);
+    later(function(){$("landing").classList.add("gone")},900);
+    later(play,1100);
+  }
+  $("diya").addEventListener("click",openGift);
+  $("again").addEventListener("click",function(){ctx();play()});
+  addEventListener("resize",function(){if(opened&&!gift.hidden){clearTimeout(rz);rz=setTimeout(function(){size();makeTargets();tps.forEach(function(p,i){var q=targets[i%targets.length];p.tx=q.x;p.ty=q.y})},200)}});
+  var rz=0,raf=0;
+  $("mine").addEventListener("click",function(e){e.preventDefault();location.hash=""});
+
+  /* create view */
+  var link="";
+  function baseUrl(){return location.href.split("#")[0]}
+  $("make").addEventListener("click",function(){
+    var n=clean($("name").value);
+    if(!n){$("name").focus();return}
+    link=baseUrl()+"#"+n;
+    $("linkbox").textContent=link;
+    $("wa").href="https://wa.me/?text="+encodeURIComponent("નૂતન વર્ષાભિનંદન! "+pretty(n)+" sent you a New Year gift. Tap to open: "+link);
+    $("result").hidden=false; $("status").textContent="";
+  });
+  $("name").addEventListener("keydown",function(e){if(e.key==="Enter")$("make").click()});
+  $("copy").addEventListener("click",function(){
+    var ok=function(){$("status").textContent="Link copied."};
+    var fail=function(){$("status").textContent="Could not copy. Select the link above and copy it."};
+    try{navigator.clipboard.writeText(link).then(ok,fail)}catch(e){fail()}
+  });
+  $("preview").addEventListener("click",function(){location.hash=link.split("#")[1]});
+
+  addEventListener("hashchange",route);
+  route();
+})();
+</script>
+</body>
+</html>
